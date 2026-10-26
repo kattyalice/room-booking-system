@@ -33,4 +33,10 @@ public class RoomController {
         Room room = roomService.createRoom(request.name(), request.capacity(), request.location());
         return RoomResponse.from(room);
     }
+
+    @PutMapping("/{id}")
+    public RoomResponse updateRoom(@PathVariable Long id, @Valid @RequestBody RoomRequest request) {
+        Room updateRoom = roomService.updateRoom(id, request.name(), request.capacity(), request.location());
+        return RoomResponse.from(updateRoom);
+    }
 }
