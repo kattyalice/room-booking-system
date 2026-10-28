@@ -28,6 +28,10 @@ A full-stack room and resource booking application that prevents double-bookings
 | GET | `/api/rooms/{id}` | Get one room |
 | POST | `/api/rooms` | Create a room |
 | PUT | `/api/rooms/{id}` | Update a room |
+| POST | `/api/bookings` | Create a booking (409 if it overlaps) |
+| GET | `/api/bookings/{id}` | Get one booking |
+| GET | `/api/rooms/{roomId}/bookings` | List a room's bookings, earliest first |
+| POST | `/api/bookings/{id}/cancel` | Cancel a booking |
 
 **Example error response (400):**
 
@@ -58,6 +62,7 @@ A full-stack room and resource booking application that prevents double-bookings
    ```
    On Windows: `mvnw.cmd spring-boot:run`
 3. The API is available at `http://localhost:8080/api/rooms`
+4. Interactive API docs (Swagger UI): `http://localhost:8080/swagger-ui/index.html`
 
 ## Roadmap
 
@@ -65,7 +70,7 @@ A full-stack room and resource booking application that prevents double-bookings
 - [x] Room and Booking entities and repositories
 - [x] Rooms API (create, read, update) with validation
 - [x] Global error handling with problem responses
-- [ ] Bookings API (create, cancel, list by room)
+- [x] Bookings API (create, cancel, list by room)
 - [ ] Unit and integration tests (JUnit, Mockito, MockMvc)
 - [ ] Angular frontend
 - [ ] CI with GitHub Actions
