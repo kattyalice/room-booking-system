@@ -5,7 +5,6 @@ import com.kattyalice.booking.common.NotFoundException;
 import com.kattyalice.booking.room.Room;
 import com.kattyalice.booking.room.RoomService;
 
-import java.awt.print.Book;
 import java.time.Instant;
 import java.util.List;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -43,16 +42,6 @@ public class BookingService {
         }
     }
 
-    private boolean isOverlap(DataIntegrityViolationException ex) {
-        String message = ex.getMostSpecificCause().getMessage();
-        return message != null && message.contains("no_overlapping_bookings");
-    }
-
-    private Booking findBooking(Long id) {
-        return bookingRepository.findById(id)
-                .orElseThrow(() ->new NotFoundException("Booking " + id + " not found."));
-    }
-
     @Transactional(readOnly = true)
     public BookingResponse getBooking(Long id) {
         return BookingResponse.from(findBooking(id));
@@ -78,5 +67,15 @@ public class BookingService {
         booking.cancel();
 
         return BookingResponse.from(booking);
+    }
+
+    private boolean isOverlap(DataIntegrityViolationException ex) {
+        String message = ex.getMostSpecificCause().getMessage();
+        return message != null && message.contains("no_overlapping_bookings");
+    }
+
+    private Booking findBooking(Long id) {
+        return bookingRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Booking " + id + " not found."));
     }
 }
