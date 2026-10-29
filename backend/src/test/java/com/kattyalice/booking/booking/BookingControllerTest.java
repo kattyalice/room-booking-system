@@ -11,6 +11,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -88,5 +89,15 @@ class BookingControllerTest {
         mockMvc.perform(get("/api/bookings/99"))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.detail").value("Booking 99 not found."));
+    }
+
+    @Test
+    void cancelBooking_whenConfirmed_returns200() throws Exception {
+        BookingResponse response = new BookingResponse(1L, 2L, "Room B", "Kathryn", "Standup", start, end, BookingStatus.CANCELLED, start);
+        when(bookingService.cancelBooking(1L)).thenReturn(response);
+
+        mockMvc.perform(post("/api/bookings/1/cancel"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.status").value("CANCELLED"));
     }
 }
