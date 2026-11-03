@@ -1,5 +1,6 @@
 <app-room-form (roomCreated)="addRoom($event)" />
 
+
 <h2>Rooms</h2>
 
 @if (rooms().length === 0) {
@@ -9,6 +10,8 @@
 
 <ul>
     @for (room of rooms(); track room.id) {
-        <li>{{ room.name }} | seats {{ room.capacity }}</li>
+        <li>
+            <a [routerLink]="['/rooms', room.id]">{{ room.name }}</a> | seats {{ room.capacity }}
+        </li>
     }
 </ul>

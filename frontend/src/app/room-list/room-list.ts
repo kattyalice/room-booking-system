@@ -2,10 +2,11 @@ import { RoomService } from '../services/room.service';
 import { inject, signal, Component, OnInit } from '@angular/core';
 import { Room } from '../models/room';
 import { RoomForm } from '../room-form/room-form';
+import { RouterLink } from '@angular/router'
 
 @Component({
   selector: 'app-room-list',
-  imports: [RoomForm],
+  imports: [RoomForm, RouterLink],
   templateUrl: './room-list.html',
   styleUrl: './room-list.css',
 })

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject} from '@angular/core';
 import { Room, RoomRequest } from '../models/room';
 
-@Injectable({ providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class RoomService {
     private http = inject(HttpClient);
 
@@ -16,4 +16,7 @@ export class RoomService {
         return this.http.post<Room>(this.baseUrl, request);
     }
 
+    getRoom(id: number) {
+        return this.http.get<Room>(`${this.baseUrl}/${id}`);
+    }
 }
