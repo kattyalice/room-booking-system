@@ -1,6 +1,7 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal, output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { RoomService } from '../services/room.service';
+import { Room } from '../models/room';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class RoomForm{
 
   private roomService = inject(RoomService);
   errors = signal<Record<string, string>>({});
+  roomCreated = output<Room>();
 
   save() {
     const request = this.form.getRawValue();
@@ -27,6 +29,7 @@ export class RoomForm{
         console.log('Saved', room);
         this.errors.set({});
         this.form.reset();
+        this.roomCreated.emit(room);
       },
       error: (err) => {
         console.log('Failed', err);
