@@ -5,3 +5,9 @@ export interface Room {
     location: string | null;
     createdAt: string;
 }
+
+export interface RoomRequest {
+    name: string;
+    capacity: number | null;
+    location: string | null;
+}
