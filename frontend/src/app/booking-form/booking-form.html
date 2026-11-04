@@ -1,0 +1,53 @@
+<h3>Book a room</h3>
+
+@if (formError()) {
+    <p class="errors">{{ formError() }}</p>
+}
+
+<form [formGroup]="form" (ngSubmit)="save()">
+    <label>
+        Booked By
+        <input
+            formControlName="bookedBy"
+            placeholder="Your name"
+        />
+        @if (errors()['bookedBy']) {
+            <span class="errors">{{ errors()['bookedBy'] }}</span>
+        }
+    </label>
+
+    <label>
+        Title
+        <input
+            formControlName="title"
+            placeholder="Reason for booking"
+        />
+        @if (errors()['title']) {
+            <span class="errors">{{ errors()['title'] }}</span>
+        }
+    </label>
+
+    <label>
+        Start Time
+        <input
+            formControlName="startTime"
+            type="datetime-local"
+        />
+        @if (errors()['startTime']) {
+            <span class="errors">{{ errors()['startTime'] }}</span>
+        }
+    </label>
+
+    <label>
+        End Time
+        <input
+            formControlName="endTime"
+            type="datetime-local"
+        />
+        @if (errors()['endTime']) {
+            <span class="errors">{{ errors()['endTime'] }}</span>
+        }
+    </label>
+
+    <button type="submit">Submit</button>
+</form>

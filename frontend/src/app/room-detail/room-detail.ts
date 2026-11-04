@@ -5,10 +5,11 @@ import { Room } from '../models/room';
 import { BookingService } from '../services/booking.service';
 import { Booking } from '../models/booking';
 import { DatePipe } from '@angular/common';
+import { BookingForm } from '../booking-form/booking-form';
 
 @Component({
   selector: 'app-room-detail',
-  imports: [RouterLink, DatePipe],
+  imports: [RouterLink, DatePipe, BookingForm],
   templateUrl: './room-detail.html',
   styleUrl: './room-detail.css',
 })
@@ -26,4 +27,9 @@ export class RoomDetail implements OnInit{
     this.bookingService.listBookingsForRoom(id).subscribe(data => this.bookings.set(data));
   }
 
+  addBooking(booking: Booking) {
+    this.bookings.update(current => 
+      [...current, booking].sort((a, b) => a.startTime.localeCompare(b.startTime))
+    );
+  }
 }

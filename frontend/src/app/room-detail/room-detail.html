@@ -3,6 +3,7 @@
 @if (room(); as room) {
     <h2>{{ room.name }}</h2>
     <p>Seats {{ room.capacity }} | {{ room.location ?? 'No location' }}</p>
+    <app-booking-form [roomId]="room.id" (bookingCreated)="addBooking($event)"/>
 }
 
 <h3>Bookings</h3>

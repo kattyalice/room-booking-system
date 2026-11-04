@@ -9,3 +9,11 @@ export interface Booking {
     status: 'CONFIRMED' | 'CANCELLED';
     createdAt: string;
 }
+
+export interface BookingRequest {
+    roomId: number;
+    bookedBy: string;
+    title: string;
+    startTime: string | null;
+    endTime: string | null;
+}
