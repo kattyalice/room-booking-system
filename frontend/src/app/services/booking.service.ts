@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Booking, BookingRequest } from '../models/booking';
+import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class BookingService {
   private http = inject(HttpClient);
 
-  private baseUrl = 'http://localhost:8080/api';
+  private baseUrl = environment.apiUrl;
 
   listBookingsForRoom(roomId: number) {
     return this.http.get<Booking[]>(`${this.baseUrl}/rooms/${roomId}/bookings`);
