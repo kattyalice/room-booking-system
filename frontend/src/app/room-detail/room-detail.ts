@@ -20,10 +20,23 @@ export class RoomDetail implements OnInit{
 
   room = signal<Room | null>(null);
   bookings = signal<Booking[]>([]);
+  loadError = signal<string | null>(null);
 
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.roomService.getRoom(id).subscribe(data => this.room.set(data));
+    this.roomService.getRoom(id).subscribe({
+      next: (data) => {
+        this.room.set(data);
+      },
+      error: (err) => {
+        console.log('Failed', err);
+        if (err.status === 404) {
+          this.loadError.set(err.error?.detail ?? 'Room not found.');
+        } else {
+          this.loadError.set("Couldn't load this room. Please try again.");
+        }
+      }
+    });
     this.bookingService.listBookingsForRoom(id).subscribe(data => this.bookings.set(data));
   }
 

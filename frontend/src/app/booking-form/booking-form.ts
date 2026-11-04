@@ -11,6 +11,7 @@ import { BookingService } from '../services/booking.service';
 })
 export class BookingForm {
   private bookingService = inject(BookingService);
+  
   roomId = input.required<number>();
   bookingCreated = output<Booking>();
   errors = signal<Record<string, string>>({});

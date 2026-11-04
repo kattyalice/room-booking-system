@@ -1,26 +1,33 @@
 <a routerLink="/">← Back to rooms</a>
 
+@if (loadError()) {
+    <p class="errors">{{ loadError() }}</p>
+}
+
 @if (room(); as room) {
     <h2>{{ room.name }}</h2>
     <p>Seats {{ room.capacity }} | {{ room.location ?? 'No location' }}</p>
     <app-booking-form [roomId]="room.id" (bookingCreated)="addBooking($event)"/>
 }
 
-<h3>Bookings</h3>
 
-@if (bookings().length === 0) {
-    <p>No bookings yet.</p>
-}
+@if (!loadError()) {
+    <h3>Bookings</h3>
 
-<ul>
-    @for (booking of bookings(); track booking.id) {
-        <li>
-            {{ booking.title }}, booked by {{ booking.bookedBy }}<br />
-            {{ booking.startTime | date:'short' }} - {{ booking.endTime | date:'short' }}
-            ({{ booking.status }})
-            @if (booking.status === 'CONFIRMED') {
-                <button type="button" (click)="cancelBooking(booking)">Cancel</button>
-            }
-        </li>
+    @if (bookings().length === 0) {
+        <p>No bookings yet.</p>
     }
-</ul>
+
+    <ul>
+        @for (booking of bookings(); track booking.id) {
+            <li>
+                {{ booking.title }}, booked by {{ booking.bookedBy }}<br />
+                {{ booking.startTime | date:'short' }} - {{ booking.endTime | date:'short' }}
+                ({{ booking.status }})
+                @if (booking.status === 'CONFIRMED') {
+                    <button type="button" (click)="cancelBooking(booking)">Cancel</button>
+                }
+            </li>
+        }
+    </ul>
+}
