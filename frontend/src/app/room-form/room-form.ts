@@ -11,15 +11,15 @@ import { Room } from '../models/room';
   styleUrl: './room-form.css',
 })
 export class RoomForm{ 
+  private roomService = inject(RoomService);
+  errors = signal<Record<string, string>>({});
+  roomCreated = output<Room>();
+
   form = new FormGroup({
     name: new FormControl('', { nonNullable: true}),
     capacity: new FormControl<number | null>(null),
     location: new FormControl('', { nonNullable: false})
   });
-
-  private roomService = inject(RoomService);
-  errors = signal<Record<string, string>>({});
-  roomCreated = output<Room>();
 
   save() {
     const request = this.form.getRawValue();

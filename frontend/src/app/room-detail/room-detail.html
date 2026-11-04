@@ -18,6 +18,9 @@
             {{ booking.title }}, booked by {{ booking.bookedBy }}<br />
             {{ booking.startTime | date:'short' }} - {{ booking.endTime | date:'short' }}
             ({{ booking.status }})
+            @if (booking.status === 'CONFIRMED') {
+                <button type="button" (click)="cancelBooking(booking)">Cancel</button>
+            }
         </li>
     }
 </ul>

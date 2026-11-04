@@ -32,4 +32,17 @@ export class RoomDetail implements OnInit{
       [...current, booking].sort((a, b) => a.startTime.localeCompare(b.startTime))
     );
   }
+
+  cancelBooking(booking: Booking) {
+    this.bookingService.cancelBooking(booking.id).subscribe({
+      next: (updated) => {
+        this.bookings.update(current =>
+          current.map(b => b.id === updated.id ? updated : b)
+        );
+      },
+      error: (err) => {
+        console.log('Cancel failed.', err);
+      },
+    });
+  }
 }

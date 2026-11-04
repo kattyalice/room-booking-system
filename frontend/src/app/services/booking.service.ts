@@ -15,4 +15,8 @@ export class BookingService {
   createBooking(request: BookingRequest) {
     return this.http.post<Booking>(`${this.baseUrl}/bookings`, request);
   }
+
+  cancelBooking(bookingId: number) {
+    return this.http.post<Booking>(`${this.baseUrl}/bookings/${bookingId}/cancel`, {});
+  }
 }
