@@ -1,36 +1,41 @@
-<h2>Add a room</h2>
+<section class="card">
+    <h2 class="text-lg font-semibold mb-4">Add a room</h2>
 
-<form [formGroup]="form" (ngSubmit)="save()">
-    <label>
-        Name
-        <input 
-            formControlName="name" 
-            placeholder="Room name"
-        />
-        @if (errors()['name']) {
-            <span class="errors">{{ errors()['name'] }}</span>
-        }
-    </label>
+    <form class="flex flex-col gap-4" [formGroup]="form" (ngSubmit)="save()">
+        <label class="field">
+            Name
+            <input
+                class="input" 
+                formControlName="name" 
+                placeholder="Room name"
+            />
+            @if (errors()['name']) {
+                <span class="error-text">{{ errors()['name'] }}</span>
+            }
+        </label>
 
-    <label>
-        Capacity
-        <input 
-            formControlName="capacity" 
-            type="number"
-            placeholder="Room capacity"
-        />
-        @if (errors()['capacity']) {
-            <span class="errors"> {{ errors()['capacity'] }}</span>
-        }
-    </label>
+        <label class="field">
+            Capacity
+            <input 
+                class="input"
+                formControlName="capacity" 
+                type="number"
+                placeholder="Room capacity"
+            />
+            @if (errors()['capacity']) {
+                <span class="error-text">{{ errors()['capacity'] }}</span>
+            }
+        </label>
 
-    <label>
-        Location
-        <input 
-            formControlName="location" 
-            placeholder="Location of room"
-        />
-    </label>
+        <label class="field">
+            Location
+            <input 
+                class="input"
+                formControlName="location" 
+                placeholder="Location of room"
+            />
+        </label>
 
-    <button type="submit">Save</button>
-</form>
+        <button class="btn-primary" type="submit">Save</button>
+    </form>
+</section>

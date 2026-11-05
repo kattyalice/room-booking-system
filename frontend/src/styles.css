@@ -1,2 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
+
+@layer components {
+    .field {
+        @apply flex flex-col gap-1.5 text-sm font-medium;
+    }
+
+    .input {
+        @apply h-11 px-3 border border-slate-300 rounded-lg;
+    }
+
+    .btn-primary {
+        @apply h-11 rounded-lg bg-indigo-600 text-white font-semibold hover:bg-indigo-700;
+    }
+
+    .btn-secondary {
+        @apply h-9 px-3.5 rounded-lg border border-slate-300 bg-white text-sm font-medium hover:bg-slate-50;
+    }
+
+    .error-text {
+        @apply text-sm text-red-700;
+    }
+
+    .card {
+        @apply bg-white border border-slate-200 rounded-xl p-6;
+    }
+}

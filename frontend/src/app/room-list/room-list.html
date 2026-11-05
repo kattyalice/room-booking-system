@@ -1,17 +1,30 @@
-<app-room-form (roomCreated)="addRoom($event)" />
+<h1 class="text-3xl font-bold text-indigo-600">Rooms</h1>
+<p class="text-slate-600 mt-1 mb-6">Pick a room to see its schedule, or add a new booking.</p>
 
+<div class="flex flex-col lg:flex-row gap-6 lg:items-start">
+  <div class="w-full lg:w-96 shrink-0">
+    <app-room-form (roomCreated)="addRoom($event)" />
+  </div>
 
-<h2 class="text-3xl font-bold text-indigo-600">Rooms</h2>
-
-@if (rooms().length === 0) {
-    <p>No rooms yet.</p>
-}
-
-
-<ul>
-    @for (room of rooms(); track room.id) {
-        <li>
-            <a [routerLink]="['/rooms', room.id]">{{ room.name }}</a> | seats {{ room.capacity }}
-        </li>
+  <section class="flex-1 min-w-0">
+    <h2 class="text-lg font-semibold mb-4">All rooms</h2>
+    @if (rooms().length === 0) {
+      <p>No rooms yet.</p>
     }
-</ul>
+    <ul class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+      @for (room of rooms(); track room.id) {
+        <li>
+          <a class="card block hover:border-indigo-300" [routerLink]="['/rooms', room.id]">
+            <div class="font-semibold">{{ room.name }}</div>
+            <div class="text-sm text-slate-600">Location {{ room.location ?? 'No location' }}</div>
+            <div
+              class="inline-block mt-3 text-xs font-medium bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-full"
+            >
+              Seats {{ room.capacity }}
+            </div>
+          </a>
+        </li>
+      }
+    </ul>
+  </section>
+</div>

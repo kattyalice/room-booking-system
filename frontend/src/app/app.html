@@ -1,1 +1,14 @@
-<router-outlet />
+<div class="min-h-screen bg-slate-50 text-slate-900">
+    <header class="bg-white border-b border-slate-200">
+        <div class="max-w-[1800px] mx-auto px-4 py-4">
+            <a routerLink="/" class="flex items-center gap-3">
+                <span class="w-8 h-8 rounded-lg bg-indigo-600"></span>
+                <span class="text-lg font-bold">Room Booking</span>
+            </a>
+        </div>
+    </header>
+
+    <main class="max-w-[1800px] mx-auto px-4 py-8">
+        <router-outlet />
+    </main>
+</div>
