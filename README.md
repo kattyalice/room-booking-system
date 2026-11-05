@@ -4,7 +4,7 @@
 
 A full-stack room and resource booking application that prevents double-bookings. Users can manage rooms and reserve time slots, and the system guarantees no two confirmed bookings for the same room ever overlap.
 
-> **Status: In progress.** The backend API is complete and tested, and the Angular frontend is working end to end. Styling and deployment are next. See the [roadmap](#roadmap).
+> **Status: In progress.** The backend API is complete and tested, and the Angular frontend is complete and styled with Tailwind CSS. Deployment is next. See the [roadmap](#roadmap).
 
 ## Highlights
 
@@ -13,6 +13,7 @@ A full-stack room and resource booking application that prevents double-bookings
 - **Consistent error handling:** a global exception handler returns standard [RFC 9457](https://www.rfc-editor.org/rfc/rfc9457) problem responses with the correct status codes (400, 404, 409) and field-level validation messages.
 - **Errors shown where users need them:** the Angular frontend displays the API's validation messages under each form field, and conflicts such as double-bookings in a message at the top of the form.
 - **Time zones handled correctly:** times are stored in UTC and shown in the user's local time zone.
+- **Responsive design:** built with Tailwind CSS, the layout adapts from phones to wide monitors.
 - **Tested at two levels:** service tests with JUnit and Mockito cover the business rules, and MockMvc tests cover status codes, validation and JSON responses. GitHub Actions runs the full suite on every push against a real PostgreSQL database.
 - **Versioned schema migrations** with Flyway, and Hibernate validates every entity against the real schema on startup.
 
@@ -32,7 +33,7 @@ A full-stack room and resource booking application that prevents double-bookings
 
 | Method | Endpoint | Description |
 |---|---|---|
-| GET | `/api/rooms` | List all rooms |
+| GET | `/api/rooms` | List all rooms, sorted by name |
 | GET | `/api/rooms/{id}` | Get one room |
 | POST | `/api/rooms` | Create a room |
 | PUT | `/api/rooms/{id}` | Update a room |
@@ -56,11 +57,12 @@ A full-stack room and resource booking application that prevents double-bookings
 
 The Angular app in `frontend/` talks to the API:
 
-- **Rooms page:** browse all rooms and add new ones, with the API's validation messages shown under each field. New rooms appear in the list right away.
-- **Room detail page:** open a room to see its bookings, sorted by start time and shown in your local time zone.
+- **Rooms page:** browse all rooms in alphabetical order and add new ones, with the API's validation messages shown under each field. New rooms appear in the list right away, in the right place.
+- **Room detail page:** open a room to see its bookings, sorted by start time and shown in your local time zone. Cancelled bookings are greyed out.
 - **Booking:** book a room from its detail page. A double-booking shows the API's 409 message ("Room B is already booked for that time.").
 - **Cancelling:** cancel a confirmed booking, which frees its time slot for someone else.
 - **Error states:** clear messages when a room doesn't exist or the server can't be reached.
+- **Responsive layout:** forms and lists sit side by side on wide screens and stack on phones.
 
 The API address lives in one place (`src/environments/`), so the same code runs locally and in production.
 
@@ -117,7 +119,7 @@ Every push runs the full suite on GitHub Actions.
 - [x] Angular frontend: rooms list and form, room detail with routing
 - [x] Booking form with validation and conflict messages
 - [x] Cancel bookings, error states, environment-based API config
-- [ ] Styling with Tailwind CSS
+- [x] Responsive styling with Tailwind CSS
 - [ ] Deployment (Neon, Render, Vercel)
 
 ## About
