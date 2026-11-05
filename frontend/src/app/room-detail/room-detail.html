@@ -1,33 +1,59 @@
-<a routerLink="/">← Back to rooms</a>
+<a
+  class="inline-flex items-center min-h-11 text-sm font-medium text-indigo-700 hover:text-indigo-800"
+  routerLink="/"
+  >← Back to rooms</a
+>
 
 @if (loadError()) {
-    <p class="errors">{{ loadError() }}</p>
+  <p class="error-text">{{ loadError() }}</p>
 }
 
 @if (room(); as room) {
-    <h2>{{ room.name }}</h2>
-    <p>Seats {{ room.capacity }} | {{ room.location ?? 'No location' }}</p>
-    <app-booking-form [roomId]="room.id" (bookingCreated)="addBooking($event)"/>
-}
+  <div class="flex flex-wrap items-end justify-between gap-3 mt-2 mb-6">
+    <div>
+      <h1 class="text-3xl font-bold">{{ room.name }}</h1>
+      <p class="text-slate-600 mt-1">{{ room.location ?? 'No location' }}</p>
+    </div>
+    <span class="badge bg-indigo-50 text-indigo-700"> Seats {{ room.capacity }} </span>
+  </div>
 
+  <div class="flex flex-col lg:flex-row gap-6 lg:items-start">
+    <section class="lg:flex-2 min-w-0">
+      <h2 class="text-lg font-semibold mb-4">Bookings</h2>
 
-@if (!loadError()) {
-    <h3>Bookings</h3>
+      @if (bookings().length === 0) {
+        <p class="text-slate-600">No bookings yet.</p>
+      }
 
-    @if (bookings().length === 0) {
-        <p>No bookings yet.</p>
-    }
-
-    <ul>
+      <ul class="flex flex-col gap-3">
         @for (booking of bookings(); track booking.id) {
-            <li>
-                {{ booking.title }}, booked by {{ booking.bookedBy }}<br />
-                {{ booking.startTime | date:'short' }} - {{ booking.endTime | date:'short' }}
-                ({{ booking.status }})
+          <li 
+            class="card flex flex-wrap items-center justify-between gap-3 py-4 " 
+            [class.bg-slate-100]="booking.status === 'CANCELLED'"
+            [class.opacity-75]="booking.status === 'CANCELLED'">
+            <div>
+                <div 
+                    class="font-semibold"
+                    [class.line-through]="booking.status === 'CANCELLED'"
+                    [class.text-slate-500]="booking.status === 'CANCELLED'"
+                    >{{ booking.title }}</div>
+                <div class="text-sm text-slate-600">{{ booking.startTime | date: 'MMM d, h:mm a' }} - {{ booking.endTime | date: 'h:mm a' }} • Booked by {{ booking.bookedBy }}</div>
+            </div>
+               
+            <div class="flex items-center gap-3">
                 @if (booking.status === 'CONFIRMED') {
-                    <button type="button" (click)="cancelBooking(booking)">Cancel</button>
+                    <span class="badge bg-green-100 text-green-800">{{ booking.status }}</span>
+                    <button class="btn-secondary" type="button" (click)="cancelBooking(booking)">Cancel</button>
+                } @else {
+                    <span class="badge bg-slate-200 text-slate-700">{{ booking.status }}</span>
                 }
-            </li>
+            </div>
+          </li>
         }
-    </ul>
+      </ul>
+    </section>
+    <div class="w-full lg:flex-1 min-w-0">
+      <app-booking-form [roomId]="room.id" (bookingCreated)="addBooking($event)" />
+    </div>
+  </div>
 }

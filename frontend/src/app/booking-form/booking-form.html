@@ -1,53 +1,57 @@
-<h3>Book a room</h3>
+<section class="card">
+  <h2 class="text-lg font-semibold mb-4">Book this room</h2>
 
-@if (formError()) {
-    <p class="errors">{{ formError() }}</p>
-}
+  @if (formError()) {
+    <p class="mb-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-800">
+      {{ formError() }}
+    </p>
+  }
 
-<form [formGroup]="form" (ngSubmit)="save()">
-    <label>
-        Booked By
-        <input
-            formControlName="bookedBy"
-            placeholder="Your name"
-        />
-        @if (errors()['bookedBy']) {
-            <span class="errors">{{ errors()['bookedBy'] }}</span>
-        }
+  <form class="flex flex-col gap-4" [formGroup]="form" (ngSubmit)="save()">
+    <label class="field">
+      Booked By
+      <input 
+        class="input" 
+        formControlName="bookedBy" 
+        placeholder="Your name" />
+      @if (errors()['bookedBy']) {
+        <span class="error-text">{{ errors()['bookedBy'] }}</span>
+      }
     </label>
 
-    <label>
-        Title
-        <input
-            formControlName="title"
-            placeholder="Reason for booking"
-        />
-        @if (errors()['title']) {
-            <span class="errors">{{ errors()['title'] }}</span>
-        }
+    <label class="field">
+      Title
+      <input 
+        class="input" 
+        formControlName="title" 
+        placeholder="Reason for booking" />
+      @if (errors()['title']) {
+        <span class="error-text">{{ errors()['title'] }}</span>
+      }
     </label>
 
-    <label>
-        Start Time
-        <input
-            formControlName="startTime"
-            type="datetime-local"
-        />
-        @if (errors()['startTime']) {
-            <span class="errors">{{ errors()['startTime'] }}</span>
-        }
+    <label class="field">
+      Start Time
+      <input 
+        class="input" 
+        formControlName="startTime" 
+        type="datetime-local" />
+      @if (errors()['startTime']) {
+        <span class="error-text">{{ errors()['startTime'] }}</span>
+      }
     </label>
 
-    <label>
-        End Time
-        <input
-            formControlName="endTime"
-            type="datetime-local"
-        />
-        @if (errors()['endTime']) {
-            <span class="errors">{{ errors()['endTime'] }}</span>
-        }
+    <label class="field">
+      End Time
+      <input 
+        class="input" 
+        formControlName="endTime" 
+        type="datetime-local" />
+      @if (errors()['endTime']) {
+        <span class="error-text">{{ errors()['endTime'] }}</span>
+      }
     </label>
 
-    <button type="submit">Submit</button>
-</form>
+    <button class="btn-primary" type="submit">Submit</button>
+  </form>
+</section>

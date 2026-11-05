@@ -17,7 +17,7 @@ public class RoomService {
 
     @Transactional(readOnly = true)
     public List<Room> listRooms() {
-        return roomRepository.findAll();
+        return roomRepository.findAllByOrderByNameAsc();
     }
 
     @Transactional(readOnly = true)

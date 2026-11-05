@@ -2,7 +2,7 @@ import { RoomService } from '../services/room.service';
 import { inject, signal, Component, OnInit } from '@angular/core';
 import { Room } from '../models/room';
 import { RoomForm } from '../room-form/room-form';
-import { RouterLink } from '@angular/router'
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-room-list',
@@ -19,6 +19,7 @@ export class RoomList implements OnInit {
   }
 
   addRoom(room: Room) {
-    this.rooms.update(current => [...current, room]);
+    this.rooms.update(current => 
+      [...current, room].sort((a, b ) => a.name.localeCompare(b.name)));
   }
 }
