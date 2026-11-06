@@ -1,6 +1,12 @@
 <section class="card">
     <h2 class="text-lg font-semibold mb-4">Add a room</h2>
 
+    @if (formError()) {
+        <p class="mb-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-800">
+            {{ formError() }}
+        </p>
+    }
+
     <form class="flex flex-col gap-4" [formGroup]="form" (ngSubmit)="save()">
         <label class="field">
             Name
