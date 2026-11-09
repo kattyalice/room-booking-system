@@ -1,3 +1,3 @@
 export const environment = {
-    apiUrl: 'http://localhost:8080/api'
+    apiUrl: 'https://room-booking-system-zc46.onrender.com/api'
 };
